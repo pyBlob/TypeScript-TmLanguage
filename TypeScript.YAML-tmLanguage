@@ -783,7 +783,7 @@ repository:
       - include: '#method-declaration-name'
 
   method-declaration-name:
-    begin: (?x)(?={{propertyName}}\s*(\??)\s*[\(\<])
+    begin: (?x)(?={{propertyName}}[\s\n]*(\??)[\s\n]*[\(\<])
     end: (?=\(|\<)
     patterns:
     - include: '#string'
@@ -1374,8 +1374,16 @@ repository:
       patterns:
       - include: '#comment'
       - include: '#numeric-literal'
+    #- name: meta.method.declaration.ts meta.definition.method.ts
+    #  match: ({{identifier}})\s*(?=,|\}|$|\/\/|\/\*)
+    #  #captures:
+    #  #  '1': { name: variable.other.readwrite.ts }
+    #  pattern:
+    #  - include: '#comment'
+    #  - 
     - name: meta.method.declaration.ts
-      begin: (?<=[\]\'\"\`])(?=\s*[\(\<])
+      #begin: (?<=^|[\]\'\"\`_$[:alnum:]])(?=\s*[\(\<])
+      begin: (?=\s*[\(\<])
       end: (?=\}|;|,)|(?<=\})
       patterns:
       - include: '#function-body'
